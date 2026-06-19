@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Upload</title>
+</head>
+<body>
+
+<h2>Upload Image</h2>
+
+<form id="uploadForm">
+    <input type="file" id="image">
+    <button type="submit">
+        Upload
+    </button>
+</form>
+
+<script>
+
+document
+.getElementById("uploadForm")
+.addEventListener("submit",
+async (e) => {
+
+    e.preventDefault();
+
+    const formData =
+    new FormData();
+
+    formData.append(
+        "image",
+        document.getElementById("image")
+        .files[0]
+    );
+
+    const response =
+    await fetch(
+        "http://localhost:5000/api/upload",
+        {
+            method: "POST",
+            body: formData
+        }
+    );
+
+    const data =
+    await response.json();
+
+    alert(data.imageUrl);
+});
+
+</script>
+
+</body>
+</html>
